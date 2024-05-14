@@ -1,9 +1,8 @@
 # creating basic flask application - set up flask 
 from flask import Flask
-app = Flask(__name__)
 from flask_sqlalchemy import SQLAlchemy 
 
-
+app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
 db = SQLAlchemy(app)
 
@@ -14,9 +13,10 @@ class Drink(db.Model):  #db.model --> sqlAlchemy (ORM)
     description = db.Column(db.String(120))
 
     #overriding another method
-    def __refr__(self):
+    def __repr__(self):
         return f"{self.name} - {self.description}"  # it will be invoked when trying to print out the drink in the list 
     
+
 
 
 
@@ -27,4 +27,22 @@ def index():    #defining method when you hit the route
 
 @app.route('/drinks')
 def get_drinks():
-    return {"drinks": "drink data"}
+    drink = Drink.query.all()
+
+    output =[]
+    for alldrinks in drink:
+        drink_data = {"name": alldrinks.name , "description": alldrinks.description}
+        output.append(drink_data)
+
+
+    return {"drinks": output}
+
+@app.route('/drinks/<id>')
+def get_drink(id):
+    drinks = Drink.query.get_or_404(id)
+    return {"name": drinks.name , "description": drinks.description} # here you are working with dictionary 
+
+    # if you are not working with dictionary then,
+    # return jsonify ({......}) 
+
+    

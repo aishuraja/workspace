@@ -1,0 +1,18 @@
+RuntimeError: Working outside of application context.
+
+This typically means that you attempted to use functionality that needed
+the current application. To solve this, set up an application context
+with app.app_context(). See the documentation for more information.
+
+
+this error occurs as db.create_all() uses db.engine(), so it requires an app context
+if this error is faced there are 2 solutions to fix that 2 solutions:
+1. create a flask shell:
+    # flask shell()
+    db.create_all()
+
+2. If you are working with the python terminal do,
+     # from application import app, db
+     app.app_context().push()
+     db.create_all()
+
