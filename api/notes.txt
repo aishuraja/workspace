@@ -16,3 +16,38 @@ if this error is faced there are 2 solutions to fix that 2 solutions:
      app.app_context().push()
      db.create_all()
 
+#install python3:
+#python3 -m venv .venv
+
+# activate:
+# source .venv/bin/activate
+
+# install flask:
+# pip3 install flask
+
+#install db:
+# pip3 install flask-sqlalchemy
+
+# export FLASK_APP=application.py
+# export FLASK_ENV=development
+
+# run the application:
+# flask run
+
+# go to python terminal:
+# python3
+
+# from application import db
+# db.create_all()
+
+# db.session.add(drink)
+# db.session.commit()
+# Drink.query.all()
+
+# users = Users.query.all()
+
+for user in users:
+    print(user.username)
+    print(user.reg_date)
+
+    
