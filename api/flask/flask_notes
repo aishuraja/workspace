@@ -1,0 +1,94 @@
+If you are here then you already know what you are gonna learn. Here I am trying to have a very good practie on rest api with python - flask framework.
+
+In simple words, flask is a microframework for web development. It is so easy and scalable for use. 
+
+Yah...Lets dive!!!
+
+step 1: Install the flask 
+      
+      pip3 install flask       # for mac/linux
+      pip install flask        # other os[windows..]
+
+step 2: Open a python file in my case its hello.py -- the place where I am gonna run my flask application --- flask is the server that runs api 
+
+here we are gonna be importing depencies 
+
+   from flask import Flask, request, jsonify  
+
+   #jsonify -- creates the json response 
+
+   app = Flask(__name__)  ## setting the application
+
+   #checks the condition in server
+   if __name__ == "__main__":
+      app.run(debug=True)
+
+      now our flask server is set up
+
+step 3: now need to figure out the routes -- endpoints 
+
+so to create a route we need to define a python fucntion 
+
+   def home():
+      return "Home"
+
+now to make the above accessible add the decorator 
+
+@app.route("/")    #app -- is the flask app name which we did at step2 while setting the application.
+
+step 4: Yahhhhh we made it , now just run the py application
+
+   python3 hello.py 
+
+
+Thats great we now have our basic flask api setup. Sooo whats next ?
+
+   Now its time to play with your server. Lol!
+
+   Previosuly, we have given the default route("/"), now lets try with other routes with different http methods -- the means by which we communicate over the internet 
+
+HTTP METHODS:
+
+   GET     --  request data from the specified resource
+   POST    --  Create a resource
+   PUT     --  Update a resource
+   DELETE  --  Delete a resource 
+
+
+now lets create a GET route :
+
+@app.route("/get-user/<user_id>") 
+
+ # here after add the get-users route there is something </user_id> called path-paramater --- its a dynamic value you can pass in the path of url and routes can be accessed. 
+  
+now define a fucntion 
+
+def get_user(user_id):  # we can access the path parameter from here - user_id
+    user_data={
+        "user_id": user_id,
+        "name" : "Aishu Raja",
+        "email" : "aishu@gmail.com"
+
+
+    }
+
+NOW i wanted to talk about one important paramater which is QUERY PARAMATER 
+
+so whenever you are accessing the route we have the ability to pass the query parameter
+
+query paramater - which is an extra value included after the main path (route)
+
+Now lets access the query paramater from the Flask:
+
+extra = request.args.get("extra") 
+
+here "request" is the thing which i imported initially when i imported flask ,
+"args" -- stores all my query paramter in a dictionary 
+get("extra") -- access a value extra 
+
+As now I have thw extra value so I need to check if it exists 
+
+if extra:
+   user_data["extra"] = extra
+
+return jsonify(user_data) , 200 
