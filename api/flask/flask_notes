@@ -92,3 +92,17 @@ if extra:
    user_data["extra"] = extra
 
 return jsonify(user_data) , 200 
+
+now lets have a look at creating a POST route:
+
+@app.routes("/create-user", methods =["POST"])   #here we are not using the default get request, we have to specify the method for this route
+# I have used POST method above which means i need and accept the post request
+
+# now define the fucntion,
+def create_user():
+   data = request.get_json()  ## provides all the data that is passed in the body of the request
+
+   return jsonify(data), 201
+
+# Testing our APIs:
+using postman 

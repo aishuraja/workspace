@@ -1,6 +1,6 @@
 # creating basic flask application - set up flask 
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy 
+from flask import Flask , request
+from flask_sqlalchemy import SQLAlchemy   # setting up db : sqlalchemy 
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///data.db'
@@ -45,4 +45,12 @@ def get_drink(id):
     # if you are not working with dictionary then,
     # return jsonify ({......}) 
 
-    
+#add the item 
+@app.route('/drinks',methods=['POST'])
+def add_drinks():
+    drink = Drink(name=request.json['name'], description=request.json['description'])
+    db.session.add(drink)
+    db.session.commit()
+    return {'id': drink.id}
+
+
